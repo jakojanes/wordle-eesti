@@ -2,7 +2,7 @@ from random import *
 import os
 
 
-
+a = "a"
 """
 todo list:
 mäng() commentis olevad asjad
@@ -12,7 +12,9 @@ teha funktsioon, mis loeb failist kasutaja andmed (võidud, mängude arv, punkti
 teha mingi lihtne achievementi fail, mis pmst checkib eelmist faili (nt kui kogu võitude arv > 10 siis on achievement)
     ning kuidagi võimalus väljaprintida olemasolevad achievementid
 
-
+tuleks läbitöödelda kõik sõna failid, teha igast kaks 
+    ühes kõik võimalikud pakkumised(pmst praegune fail, aga neis mõned vigased), 
+    teises kõik võimalikud sõnad, mida mäng kasutab tundmatuna
 
 
 
