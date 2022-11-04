@@ -24,73 +24,99 @@ kui on valmis cmdl töötav worlde siis see viia üle pygame GUI
 
 """
 
-while True:
-    try:
-        tähtede_arv = int(input("Mitme tähega tahad mängida (4,5,6): "))
-        if tähtede_arv == 4 or tähtede_arv == 5 or tähtede_arv == 6:
-            break
-        else:
-            print("Palun sisestage arv 4st-6ni. (x, et väljuda).")
-
-        
-
-    except:
-        print()
 
 
-fail = "sonad" + str(tähtede_arv) + ".txt"
-sõnad = open(fail, "r", encoding="utf-8").read().splitlines()
-
-
-sõna = [*choice(sõnad)]
-arvamine = [[],[],[],[],[]]
-pakkumised = [[],[],[],[],[]]
-
-
-for i in range(5):
-    for j in range(tähtede_arv):
-        arvamine[i].append("X")
-        pakkumised[i].append("x")
 
 
 def mäng():
-    for x in range(5):
-        pakkumine = input("Tee pakkumine: ")
+
+    while True:
+        try:
+            tähtede_arv = int(input("Mitme tähega tahad mängida (4,5,6): "))
+            if tähtede_arv == 4 or tähtede_arv == 5 or tähtede_arv == 6:
+                break
+            else:
+                print("Palun sisestage arv 4st-6ni. (x, et väljuda).")
+
+            
+
+        except:
+            return True
+
+    fail = "sonad" + str(tähtede_arv) + ".txt"
+    sõnad = open(fail, "r", encoding="utf-8").read().splitlines()
+    sõnad.append("iiii")
+    
+
+    sõna = [*choice(sõnad)]
+    #sõna = [*"petetu"]   #baaba
+    arvamine = [[],[],[],[],[],[]]
+    pakkumised = [[],[],[],[],[],[]]
+
+
+    for i in range(6):
+        for j in range(tähtede_arv):
+            arvamine[i].append("X")
+            pakkumised[i].append("X")
+
+    for x in range(6):
+        while True:
+            pakkumine = input("Tee pakkumine: ")
+            if pakkumine in sõnad and len(pakkumine) == tähtede_arv:
+                break
+            else:
+                print("Antud sõna ei eksisteeri.")
 
         """
-        Siia vahele while loop, mis vaatab, kas pakutud sõna vastab parameetritele, on pakutavate sõnada failis jne...
         samuti teha ka see, mis näitab, mis tähed on kasutatud ja mida veel ei ole
         samuti tuua sõna genereemine funktsiooni sisse
         
         """
-        pak = [*pakkumine] #Teeb sõne järjendiks ("auto" -> ["a", "u", "t", "o"])
+        pak = [*pakkumine.lower()] #Teeb sõne järjendiks ("auto" -> ["a", "u", "t", "o"])
         pakkumised[x] = pak
         index = 0  
 
 
         if pakkumine in sõnad: #vaatab kas antud pakkumine on sõna, mida võib pakkuda
             for i in range(len(pak)):       
-                if pak[i] == sõna[i]:     
+                if pak[i] == sõna[i]:        #h == l False
                     arvamine[x][i] = pak[i]
-                    if sõna.count(pak[i]) > 1: #Vaatab kas antud tähte on rohkem, kui üks
-                        index = i
-                        for j in range(i+1,len(sõna)):
-                            if sõna[j] == pak[i]:
-                                if pak[i] == sõna[i]:
-                                    if arvamine[x][i] == "X":
-                                        pak[i] = arvamine[x][i]
+                elif pak[i] in sõna:  #True
+                    
+                    sõna_count = 0 
+                    sõna_olemas = 0 #1
+                    
+                     #4
+                    for k in sõna:  #l u h t
+                        if k == pak[i]:  #pak[i] h == h
+                            sõna_olemas += 1
+                            
 
+                    for k in sõna:
+                        if k == sõna[i]:
+                            sõna_count += 1
 
-                                else:
-                                    if arvamine[x][i] == "X":
-                                        arvamine[x][i] = pak[i].upper()
-
-
-                elif pak[i] in sõna:
-                    for j in range(len(sõna)):
-                        if sõna[j] == pak[i]:
-                            if arvamine[x][i] == "X":
-                                arvamine[x][i] = pak[i].upper()
+                    # [a s e t u s]   [p e t e tu]
+                    
+                    print(sõna_count, sõna_olemas)
+                    print(arvamine[x].count(pak[i]))
+                    print(arvamine[x])
+                    
+                    if sõna_count > sõna_olemas and (arvamine[x].count(pak[i]) > sõna_olemas or arvamine[x].count(pak[i]) == 0):
+                        arvamine[x][i] = pak[i].upper()
+                    elif sõna_count == sõna_olemas:
+                        a = False
+                        for p in range(len(pak)):
+                            if pak[p] == sõna[p]:
+                                a = True
+                        if a == True:
+                            
+                            arvamine[x][i] = "X"
+                        else:
+                            arvamine[x][i] = pak[i].upper()
+                    else:
+                        
+                        arvamine[x][i] = "X"
 
 
         else:
@@ -104,8 +130,10 @@ def mäng():
 
         os.system("cls")
         for i in range(len(pakkumised)):
-            print("".join(pakkumised[i]) + "        " + "".join(arvamine[i]))
-
+            if x == i:
+                print("".join(pakkumised[i]) + " <----------> " + "".join(arvamine[i]))
+            else:
+                print("".join(pakkumised[i]) + "              " + "".join(arvamine[i]))
 
     print("Kaotasite")
     print(sõna)
