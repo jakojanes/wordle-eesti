@@ -1,6 +1,7 @@
-from string import *
+import string
 
 
+tähed = [x for x in string.ascii_lowercase]
+tähed.remove("a")
 
-a = [1,1,3,4,5,1]
-print(a.index(1))
+print(tähed)

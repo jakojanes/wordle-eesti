@@ -1,5 +1,8 @@
 from random import * 
 import os
+import string
+
+
 
 
 a = "a"
@@ -29,7 +32,7 @@ kui on valmis cmdl töötav worlde siis see viia üle pygame GUI
 
 
 def mäng():
-
+    tähed = [x for x in string.ascii_lowercase]
     while True:
         try:
             tähtede_arv = int(input("Mitme tähega tahad mängida (4,5,6): "))
@@ -45,14 +48,14 @@ def mäng():
 
     fail = "sonad" + str(tähtede_arv) + ".txt"
     sõnad = open(fail, "r", encoding="utf-8").read().splitlines()
-    sõnad.append("iiii")
+    sõnad.append("ssssss")
+    sõnad.append("sssxxx")
     
 
     sõna = [*choice(sõnad)]
-    #sõna = [*"petetu"]   #baaba
+    
     arvamine = [[],[],[],[],[],[]]
     pakkumised = [[],[],[],[],[],[]]
-
 
     for i in range(6):
         for j in range(tähtede_arv):
@@ -60,6 +63,14 @@ def mäng():
             pakkumised[i].append("X")
 
     for x in range(6):
+        
+        sona_sageuds = dict()
+        for i in sõna:
+            if i in sona_sageuds:
+                sona_sageuds[i] += 1
+            else:
+                sona_sageuds[i] = 1
+
         while True:
             pakkumine = input("Tee pakkumine: ")
             if pakkumine in sõnad and len(pakkumine) == tähtede_arv:
@@ -73,54 +84,28 @@ def mäng():
         
         """
         pak = [*pakkumine.lower()] #Teeb sõne järjendiks ("auto" -> ["a", "u", "t", "o"])
+        pak_sagedus = dict()
+        for i in pak:
+            if i in pak_sagedus:
+                pak_sagedus[i] += 1
+            else:
+                pak_sagedus[i] = 1
         pakkumised[x] = pak
-        index = 0  
 
+   
 
-        if pakkumine in sõnad: #vaatab kas antud pakkumine on sõna, mida võib pakkuda
+        if pakkumine in sõnad: 
             for i in range(len(pak)):       
-                if pak[i] == sõna[i]:        #h == l False
+                if pak[i] == sõna[i]:        
                     arvamine[x][i] = pak[i]
-                elif pak[i] in sõna:  #True
-                    
-                    sõna_count = 0 
-                    sõna_olemas = 0 #1
-                    
-                     #4
-                    for k in sõna:  #l u h t
-                        if k == pak[i]:  #pak[i] h == h
-                            sõna_olemas += 1
-                            
-
-                    for k in sõna:
-                        if k == sõna[i]:
-                            sõna_count += 1
-
-                    # [a s e t u s]   [p e t e tu]
-                    
-                    print(sõna_count, sõna_olemas)
-                    print(arvamine[x].count(pak[i]))
-                    print(arvamine[x])
-                    
-                    if sõna_count > sõna_olemas and (arvamine[x].count(pak[i]) > sõna_olemas or arvamine[x].count(pak[i]) == 0):
-                        arvamine[x][i] = pak[i].upper()
-                    elif sõna_count == sõna_olemas:
-                        a = False
-                        for p in range(len(pak)):
-                            if pak[p] == sõna[p]:
-                                a = True
-                        if a == True:
-                            
-                            arvamine[x][i] = "X"
-                        else:
-                            arvamine[x][i] = pak[i].upper()
-                    else:
-                        
+                    sona_sageuds[pak[i]] -= 1
+            
+            for i in range(len(pak)):
+                if pak[i] in sõna and pak[i] != sõna[i] :
+                    if sona_sageuds[pak[i]] == 0:
                         arvamine[x][i] = "X"
-
-
-        else:
-            print("pole")
+                    else:
+                        arvamine[x][i] = pak[i].upper()
 
 
         if arvamine[x] == sõna:
@@ -134,9 +119,17 @@ def mäng():
                 print("".join(pakkumised[i]) + " <----------> " + "".join(arvamine[i]))
             else:
                 print("".join(pakkumised[i]) + "              " + "".join(arvamine[i]))
+        for i in pak:
+            try:
+                tähed.remove(i)
+            except:
+                continue
+        print("\nTähed kasutamata:")
+        print(*tähed)
+        print()
 
     print("Kaotasite")
-    print(sõna)
+    print("Õige vastus on: ", *sõna)
 
 
         
