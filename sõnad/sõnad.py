@@ -9,7 +9,8 @@ sõnad = open("sõnad\lemmad.txt","r").read().splitlines()
 tähed4 = []
 tähed5 = []
 tähed6 = []
-tähed = ascii_lowercase
+tähed = ascii_lowercase + "öäüõ"
+print(tähed)
 
 
 for i in sõnad:
