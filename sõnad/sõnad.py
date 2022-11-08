@@ -2,24 +2,39 @@
 
 
 from string import punctuation
-
+from string import * 
 
 sõnad = open("sõnad\lemmad.txt","r").read().splitlines()
 
 tähed4 = []
 tähed5 = []
 tähed6 = []
-
+tähed = ascii_lowercase
 
 
 for i in sõnad:
 
         if len(i) == 4:
-            tähed4.append(i.lower())
+            a = 0
+            for j in i:
+                if j in tähed:
+                    a += 1
+                if a == 4:
+                    tähed4.append(i.lower())
         elif len(i) == 5:
-            tähed5.append(i.lower())
+            a = 0
+            for j in i:
+                if j in tähed:
+                    a += 1
+                if a == 5:
+                    tähed5.append(i.lower())
         elif len(i) == 6:
-            tähed6.append(i.lower())
+            a = 0
+            for j in i:
+                if j in tähed:
+                    a += 1
+                if a == 6:
+                    tähed6.append(i.lower())
 
 
 with open("sonad4.txt", 'w', encoding="utf-8") as fp:
