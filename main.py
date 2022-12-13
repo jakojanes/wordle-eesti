@@ -2,8 +2,19 @@ from random import *
 import os
 import string
 
-
-
+print()
+print()
+print("Et mängida, tuleb sisestada kindlas pikkuses sõnu.")
+print("Peale igat arvamist tekivad kaks veergu, vasakus on")
+print("sinu arvamine ning paremas on lahendus. Lahenduses X")
+print("tähendab, et antud samal positsioonil olevad tähed")
+print("ei kattu ning lõpplahenduses sellist tähte ei ole.")
+print("Kui lahendusse tekib suur täht nt. A, siis see tähendab,")
+print("et antud täht eksisteerib kuskil lahendis. Ning kui")
+print("lahendisse ilmub väike täht nt. a, siis see tähendab, et")
+print("täht on õiges asendis.")
+print()
+print()
 
 a = "a"
 """
@@ -33,6 +44,10 @@ kui on valmis cmdl töötav worlde siis see viia üle pygame GUI
 
 def mäng():
     tähed = [x for x in string.ascii_lowercase]
+    tähed.append("õ")
+    tähed.append("ä")
+    tähed.append("ö")
+    tähed.append("ü")
     while True:
         try:
             tähtede_arv = int(input("Mitme tähega tahad mängida (4,5,6): "))
@@ -75,6 +90,8 @@ def mäng():
             pakkumine = input("Tee pakkumine: ")
             if pakkumine in sõnad and len(pakkumine) == tähtede_arv:
                 break
+            elif pakkumine in sõnad and len(pakkumine) != tähtede_arv:
+                print("Sisestasite vales pikkuses sõna.")
             else:
                 print("Antud sõna ei eksisteeri.")
 
@@ -129,7 +146,10 @@ def mäng():
         print()
 
     print("Kaotasite")
-    print("Õige vastus on: ", *sõna)
+    a = ""
+    for i in sõna:
+        a += i
+    print("Õige vastus on: ", a)
 
 
         
