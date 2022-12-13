@@ -8,7 +8,7 @@ sõnad = open(fail, "r", encoding="utf-8").read().splitlines()
 vastus = choice(sõnad).upper()
 print(vastus)
 
-
+#initaliseerin pygame
 pygame.init()
 pygame.font.init()
 
@@ -23,21 +23,17 @@ screen = pygame.display.set_mode((laius,pikkus))
 font = pygame.font.SysFont("free sans bold", ruudusuurus-1)
 font2 = pygame.font.SysFont("free sans bold", 42)
 
-
+#värvi ja muud vajalikud variabelid
 HALL = (70,70,70)
 ROHELINE = (6, 214, 160)
 KOLLANE = (255,209,102)
-
 pakkumine = ""
 vastused = []
 tähestik = ascii_lowercase + "öäüõ"
 tähti_mitte_pakutud = tähestik
 mäng_läbi = False
 
-#pygame parameetrid
-
-pygame.display.set_caption("Wordle")
-
+#Mis värvi tuleb kast värvida?
 def kasti_värv(pak, m):
     täht = pak[m]
     if täht == vastus[m]:
@@ -50,9 +46,7 @@ def kasti_värv(pak, m):
             if pak[i] == täht:
                 if i <= m:
                     mitu_esineb += 1
-                if täht == vastus[i]:
-                    mitu_olemas += 1
-        if mitu_õiget - mitu_olemas - mitu_esineb >= 0:
+        if mitu_õiget - mitu_esineb >= 0:
             return KOLLANE
     return HALL
 
@@ -84,7 +78,7 @@ while visualiseerimine:
                 surface = täht.get_rect(center = (x+ruudusuurus//2,y+ruudusuurus//2))
                 screen.blit(täht, surface)
 
-
+            #tähtede kuvamine kirjutamise ajal
             if i == len(vastused) and j < len(pakkumine):
                 täht = font.render(pakkumine[j], False, HALL)
                 surface = täht.get_rect(center = (x+ruudusuurus//2,y+ruudusuurus//2))
@@ -103,7 +97,7 @@ while visualiseerimine:
 #ekraani uuendamine
     pygame.display.flip()
 
-    #main mängu loop
+    #sündmuste kuulamine
     for sündmus in pygame.event.get():
 
 
