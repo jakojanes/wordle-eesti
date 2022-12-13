@@ -2,6 +2,9 @@ from random import *
 from string import *
 import pygame
 
+
+
+
 #loen kõik võimalikud sõnad listi, ning valin suvalise
 fail = "sonad5.txt"
 sõnad = open(fail, "r", encoding="utf-8").read().splitlines()
@@ -33,20 +36,19 @@ tähestik = ascii_lowercase + "öäüõ"
 tähti_mitte_pakutud = tähestik
 mäng_läbi = False
 
-#Mis värvi tuleb kast värvida?
+#Mis värvi tuleb kast värvida? loogika põhineb main.py loopil
 def kasti_värv(pak, m):
     täht = pak[m]
     if täht == vastus[m]:
         return ROHELINE
     elif täht in vastus:
         mitu_õiget = vastus.count(täht)
-        mitu_olemas = 0
-        mitu_esineb = 0
+        mitu_esineb_pakkumises = 0
         for i in range(5):
             if pak[i] == täht:
                 if i <= m:
-                    mitu_esineb += 1
-        if mitu_õiget - mitu_esineb >= 0:
+                    mitu_esineb_pakkumises += 1
+        if mitu_õiget - mitu_esineb_pakkumises >= 0:
             return KOLLANE
     return HALL
 
