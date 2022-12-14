@@ -175,4 +175,12 @@ else:
     print("Mängitud on", mitu_mängu, "mängu.") 
 print("Võitsite", võit, "mängu, kaotasite", kaotus, "mängu.")
 
+võidu_protsent = võit / mitu_mängu
+
+streak = 0
+while kaotus == 0:
+    streak += 1
+    continue
+
+print(streak)
 
