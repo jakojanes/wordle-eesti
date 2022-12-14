@@ -153,11 +153,17 @@ def mäng():
 
 
         
-
+k = 1
 while True:
     mäng()
     edasi = input("Kas tahate edasi mängida? (j/e): ")
     if edasi == "j":
+        k += 1
         continue
     elif edasi == "e":
         break
+
+mitu_mängu = k
+print("Mängitud on", mitu_mängu, "mängu")
+
+
