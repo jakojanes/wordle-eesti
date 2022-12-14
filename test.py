@@ -1,7 +1,14 @@
-import string
+def loe_failist():
+    f = open("andmed.txt").read().splitlines()
+    return f
 
+def kirjuta_faili(list):
+    f = open("andmed.txt", "w")
+    for i in list:
+        f.write("{}".format(i))
+        f.write("\n")
 
-tähed = [x for x in string.ascii_lowercase]
-tähed.remove("a")
+    f.close()
+loe_failist()
 
-print(tähed)
+kirjuta_faili([1,2,3])
