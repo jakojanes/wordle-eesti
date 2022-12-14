@@ -41,7 +41,8 @@ kui on valmis cmdl töötav worlde siis see viia üle pygame GUI
 
 
 
-
+võit = 0
+kaotus = 0
 def mäng():
     tähed = [x for x in string.ascii_lowercase]
     tähed.append("õ")
@@ -126,6 +127,8 @@ def mäng():
 
 
         if arvamine[x] == sõna:
+            global võit
+            võit += 1
             print("Olete võitnud")
             return True
 
@@ -147,6 +150,8 @@ def mäng():
 
     print("Kaotasite")
     a = ""
+    global kaotus
+    kaotus += 1
     for i in sõna:
         a += i
     print("Õige vastus on: ", a)
@@ -164,6 +169,10 @@ while True:
         break
 
 mitu_mängu = k
-print("Mängitud on", mitu_mängu, "mängu")
+if mitu_mängu == 1:
+    print("Mängitud on 1 mäng.")
+else:
+    print("Mängitud on", mitu_mängu, "mängu.") 
+print("Võitsite", võit, "mängu, kaotasite", kaotus, "mängu.")
 
 
