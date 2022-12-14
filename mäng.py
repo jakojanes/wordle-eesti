@@ -74,9 +74,7 @@ def eemalda_tähed(pak):
 
     a = "".join(tähti_mitte_pakutud_list).upper()
 
-    print(pak_list)
-    print(tähti_mitte_pakutud)
-    print(tähti_mitte_pakutud_list)
+
 
     return a
 
